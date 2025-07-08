@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:trivvo/config/router/app_router.dart';
 import 'package:trivvo/config/theme/app_theme.dart';
@@ -7,7 +8,7 @@ import 'package:trivvo/config/theme/app_theme.dart';
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
 
-  runApp(const MainApp());
+  runApp(ProviderScope(child: const MainApp()));
 }
 
 class MainApp extends StatelessWidget {
