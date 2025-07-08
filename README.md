@@ -1,47 +1,53 @@
-# Trivvo
+# 🎬 Trivvo
 
-Trivvo es una app Flutter que actúa como una enciclopedia del cine y las series. Este proyecto utiliza la API de TMDB (The Movie Database) para obtener información actualizada sobre películas, series, actores y más.
+**Trivvo** es una app Flutter que funciona como una enciclopedia interactiva de películas, series, actores y más. Utiliza la API oficial de [TMDB](https://www.themoviedb.org/) para ofrecer información actualizada del mundo audiovisual.
 
 ---
 
 ## 🚀 Comenzando
 
-Sigue estos pasos para configurar el entorno local de desarrollo:
+Sigue estos pasos para ejecutar Trivvo en tu entorno local:
 
-### 1. Clona el repositorio
+### 1. Clonar el repositorio
 
 ```bash
 git clone https://github.com/tu-usuario/trivvo.git
 cd trivvo
 ```
 
-### 2. Configura tus variables de entorno
+### 2. Configurar variables de entorno
 
-Este proyecto utiliza un archivo `.env` para manejar variables sensibles como la API Key de TMDB.
-
-#### 📌 Pasos:
-
-- Duplica el archivo `.env.template` y renómbralo como `.env`:
+Este proyecto utiliza un archivo `.env` para gestionar el token de acceso a la API de TMDB.
 
 ```bash
 cp .env.template .env
 ```
 
-- Abre el archivo `.env` y agrega tu clave de API de TMDB:
+Edita el archivo `.env` y reemplaza el valor con tu token de acceso:
 
 ```env
-TMDB_API_KEY=tu_clave_de_api_aquí
+TMDB_API_Read_Access_Token=tu_access_token_aquí
 ```
 
-> 🔑 Puedes obtener una clave gratuita registrándote en [TMDB](https://www.themoviedb.org/).
+> Puedes obtener tu token registrándote en [TMDB](https://www.themoviedb.org/settings/api).
 
-### 3. Instala las dependencias
+### 3. Instalar dependencias
 
 ```bash
 flutter pub get
 ```
 
-### 4. Ejecuta la app
+### 4. Generar el código de Riverpod
+
+Este proyecto utiliza generación de código con Riverpod, por lo que es necesario ejecutar:
+
+```bash
+dart run build_runner watch -d
+```
+
+> Este paso permite compilar correctamente los providers anotados con `@riverpod`.
+
+### 5. Ejecutar la app
 
 ```bash
 flutter run
