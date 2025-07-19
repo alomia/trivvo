@@ -30,4 +30,25 @@ class Movie {
     required this.voteAverage,
     required this.voteCount,
   });
+
+  factory Movie.skeleton() {
+    return Movie(
+      id: 0,
+      title: 'Skeleton title',
+      overview: 'Skeleton overview',
+      posterPath:
+          'https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
+      backdropPath:
+          'https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
+      releaseDate: DateTime(2023, 01, 01),
+      voteAverage: 0.0,
+      genreIds: [1, 2],
+      originalLanguage: 'en',
+      originalTitle: 'Skeleton original title',
+      popularity: 0.0,
+      video: false,
+      voteCount: 0,
+      adult: false,
+    );
+  }
 }

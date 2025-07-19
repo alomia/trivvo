@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 import 'package:trivvo/presentation/providers/providers.dart';
 import 'package:trivvo/presentation/widgets/widgets.dart';
@@ -43,23 +42,20 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final nowPlayingState = ref.watch(nowPlayingMoviesProvider);
     final moviesCarousel = ref.watch(moviesCarouselProvider);
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          nowPlayingState.isLoading
-              ? MovieCarouselSkeleton()
-              : MovieCarousel(movies: moviesCarousel),
+    return Column(
+      spacing: 10.0,
+      children: [
+        MovieCarousel(
+          movies: moviesCarousel,
+          isSkeleton: nowPlayingState.isLoading,
+        ),
 
-          SizedBox(height: 10.0),
-
-          nowPlayingState.isLoading
-              ? MoviesHorizontalSkeleton()
-              : MoviesHorizontalList(
-                  title: 'En cines',
-                  movies: nowPlayingState.movies,
-                ),
-        ],
-      ),
+        MoviesHorizontalList(
+          title: 'En cines',
+          movies: nowPlayingState.movies,
+          isSkeleton: nowPlayingState.isLoading,
+        ),
+      ],
     );
   }
 }
