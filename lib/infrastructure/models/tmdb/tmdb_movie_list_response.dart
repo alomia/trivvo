@@ -1,13 +1,13 @@
 import 'package:trivvo/infrastructure/models/tmdb/movie_tmdb.dart';
 
-class TmdbResponse {
+class TmdbMovieListResponse {
     final Dates dates;
     final int page;
     final List<MovieTmdb> results;
     final int totalPages;
     final int totalResults;
 
-    TmdbResponse({
+    TmdbMovieListResponse({
         required this.dates,
         required this.page,
         required this.results,
@@ -15,7 +15,7 @@ class TmdbResponse {
         required this.totalResults,
     });
 
-    factory TmdbResponse.fromJson(Map<String, dynamic> json) => TmdbResponse(
+    factory TmdbMovieListResponse.fromJson(Map<String, dynamic> json) => TmdbMovieListResponse(
         dates: Dates.fromJson(json["dates"]),
         page: json["page"],
         results: List<MovieTmdb>.from(json["results"].map((x) => MovieTmdb.fromJson(x))),

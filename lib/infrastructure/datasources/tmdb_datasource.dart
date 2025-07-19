@@ -16,14 +16,24 @@ final dio = Dio(
 
 class TmdbDatasource extends MoviesDatasource {
   @override
-  Future<List<Movie>> getNowPlaying({int page = 1}) async {
+  Future<List<Movie>> fetchNowPlaying({int page = 1}) async {
     final response = await dio.get('/movie/now_playing');
-    final tmdbResponse = TmdbResponse.fromJson(response.data);
 
-    final List<Movie> movies = tmdbResponse.results
-        .map((movie) => MovieMapper.tmdbToEntity(movie))
-        .toList();
+    final List<Movie> movies = TmdbMovieListResponse.fromJson(
+      response.data,
+    ).results.map((movie) => MovieMapper.tmdbToEntity(movie)).toList();
 
     return movies;
+  }
+
+  @override
+  Future<List<Genre>> fetchMovieGenres() async {
+    final response = await dio.get('/genre/movie/list');
+
+    final List<Genre> genres = TmdbGenreListResponse.fromJson(
+      response.data,
+    ).genres.map((genre) => GenreMapper.tmdbToEntity(genre)).toList();
+
+    return genres;
   }
 }

@@ -7,7 +7,7 @@ class MovieMapper {
   static Movie tmdbToEntity(MovieTmdb movie) => Movie(
     adult: movie.adult,
     backdropPath: '$_imageBaseUrl${movie.backdropPath}',
-    genreIds: movie.genreIds.map((e) => e.toString()).toList(),
+    genreIds: movie.genreIds.map((genreId) => genreId).toList(),
     id: movie.id,
     originalLanguage: movie.originalLanguage,
     originalTitle: movie.originalTitle,
