@@ -22,7 +22,6 @@ class MoviesHorizontalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final int skeletonItemCount = 5;
 
     return Skeletonizer(
       enabled: isSkeleton,
@@ -43,9 +42,9 @@ class MoviesHorizontalList extends StatelessWidget {
           ),
 
           SizedBox(
-            height: 300.0,
+            height: 250.0,
             child: ListView.builder(
-              itemCount: isSkeleton ? skeletonItemCount : movies.length,
+              itemCount: isSkeleton ? 5 : movies.length,
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 10.0),
 

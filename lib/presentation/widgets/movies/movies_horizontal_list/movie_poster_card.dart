@@ -34,6 +34,8 @@ class MoviePosterCard extends StatelessWidget {
                 child: Stack(
                   children: [
                     CachedNetworkImage(
+                      width: 166.5,
+                      height: 250.0,
                       imageUrl: movie.posterPath,
                       progressIndicatorBuilder: (context, url, progress) =>
                           SkeletonBox(),

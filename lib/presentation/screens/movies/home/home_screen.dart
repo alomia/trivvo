@@ -31,6 +31,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+      ref.read(topRatedMoviesProvider.notifier).loadNextPage();
       ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
       ref.read(movieGenresProvider.notifier).fetchMovieGenres();
     });
@@ -39,23 +41,41 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   @override
   Widget build(BuildContext context) {
     ref.watch(movieGenresProvider);
+    final upcomingMoviesState = ref.watch(upcomingMoviesProvider);
+    final popularMoviesState = ref.watch(topRatedMoviesProvider);
     final nowPlayingState = ref.watch(nowPlayingMoviesProvider);
     final moviesCarousel = ref.watch(moviesCarouselProvider);
 
-    return Column(
-      spacing: 10.0,
-      children: [
-        MovieCarousel(
-          movies: moviesCarousel,
-          isSkeleton: nowPlayingState.isLoading,
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        spacing: 25.0,
+        children: [
+          MovieCarousel(
+            movies: moviesCarousel,
+            isSkeleton: nowPlayingState.isLoading,
+          ),
 
-        MoviesHorizontalList(
-          title: 'En cines',
-          movies: nowPlayingState.movies,
-          isSkeleton: nowPlayingState.isLoading,
-        ),
-      ],
+          MoviesHorizontalList(
+            title: 'En cines',
+            movies: nowPlayingState.movies,
+            isSkeleton: nowPlayingState.isLoading,
+          ),
+
+          MoviesHorizontalList(
+            title: 'Mejor valoradas',
+            movies: popularMoviesState.movies,
+            isSkeleton: popularMoviesState.isLoading,
+          ),
+
+          MoviesHorizontalList(
+            title: 'Próximamente',
+            movies: upcomingMoviesState.movies,
+            isSkeleton: upcomingMoviesState.isLoading,
+          ),
+
+          SizedBox(height: 20.0),
+        ],
+      ),
     );
   }
 }

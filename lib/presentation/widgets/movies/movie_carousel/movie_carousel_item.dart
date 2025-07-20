@@ -29,7 +29,7 @@ class MovieCarouselItem extends ConsumerWidget {
               imageUrl: movie.backdropPath,
               fit: BoxFit.cover,
               progressIndicatorBuilder: (context, url, progress) =>
-                  MovieCarouselSkeleton(),
+                  SkeletonBox(),
             ),
           ),
 
