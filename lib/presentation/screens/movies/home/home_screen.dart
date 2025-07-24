@@ -62,15 +62,15 @@ class _HomeViewState extends ConsumerState<_HomeView> {
           ),
 
           MoviesHorizontalList(
-            title: 'Mejor valoradas',
-            movies: popularMoviesState.movies,
-            isSkeleton: popularMoviesState.isLoading,
-          ),
-
-          MoviesHorizontalList(
             title: 'Próximamente',
             movies: upcomingMoviesState.movies,
             isSkeleton: upcomingMoviesState.isLoading,
+          ),
+
+          MoviesHorizontalList(
+            title: 'Mejor valoradas',
+            movies: popularMoviesState.movies,
+            isSkeleton: popularMoviesState.isLoading,
           ),
 
           SizedBox(height: 20.0),
