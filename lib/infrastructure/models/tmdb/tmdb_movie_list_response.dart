@@ -1,8 +1,8 @@
-import 'package:trivvo/infrastructure/models/tmdb/movie_tmdb.dart';
+import 'package:trivvo/infrastructure/models/tmdb/movie_tmdb_list.dart';
 
 class TmdbMovieListResponse {
   final int page;
-  final List<MovieTmdb> results;
+  final List<MovieTmdbList> results;
   final int totalPages;
   final int totalResults;
 
@@ -16,8 +16,8 @@ class TmdbMovieListResponse {
   factory TmdbMovieListResponse.fromJson(Map<String, dynamic> json) =>
       TmdbMovieListResponse(
         page: json["page"],
-        results: List<MovieTmdb>.from(
-          json["results"].map((x) => MovieTmdb.fromJson(x)),
+        results: List<MovieTmdbList>.from(
+          json["results"].map((x) => MovieTmdbList.fromJson(x)),
         ),
         totalPages: json["total_pages"],
         totalResults: json["total_results"],

@@ -1,8 +1,8 @@
-class MovieTmdb {
+class MovieTmdbList {
     final bool adult;
     final String backdropPath;
     final List<int> genreIds;
-    final int id;
+    final String id;
     final String originalLanguage;
     final String originalTitle;
     final String overview;
@@ -14,7 +14,7 @@ class MovieTmdb {
     final double voteAverage;
     final int voteCount;
 
-    MovieTmdb({
+    MovieTmdbList({
         required this.adult,
         required this.backdropPath,
         required this.genreIds,
@@ -31,11 +31,11 @@ class MovieTmdb {
         required this.voteCount,
     });
 
-    factory MovieTmdb.fromJson(Map<String, dynamic> json) => MovieTmdb(
+    factory MovieTmdbList.fromJson(Map<String, dynamic> json) => MovieTmdbList(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"],
+        id: json["id"].toString(),
         originalLanguage: json["original_language"],
         originalTitle: json["original_title"],
         overview: json["overview"],

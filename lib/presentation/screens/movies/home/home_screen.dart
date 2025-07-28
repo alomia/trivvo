@@ -52,25 +52,25 @@ class _HomeViewState extends ConsumerState<_HomeView> {
         children: [
           MovieCarousel(
             movies: moviesCarousel,
-            isSkeleton: nowPlayingState.isLoading,
+            isLoading: nowPlayingState.isLoading,
           ),
 
           MoviesHorizontalList(
             title: 'En cines',
             movies: nowPlayingState.movies,
-            isSkeleton: nowPlayingState.isLoading,
+            isLoading: nowPlayingState.isLoading,
           ),
 
           MoviesHorizontalList(
             title: 'Próximamente',
             movies: upcomingMoviesState.movies,
-            isSkeleton: upcomingMoviesState.isLoading,
+            isLoading: upcomingMoviesState.isLoading,
           ),
 
           MoviesHorizontalList(
             title: 'Mejor valoradas',
             movies: popularMoviesState.movies,
-            isSkeleton: popularMoviesState.isLoading,
+            isLoading: popularMoviesState.isLoading,
           ),
 
           SizedBox(height: 20.0),

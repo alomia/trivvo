@@ -1,8 +1,8 @@
 class Movie {
   final bool adult;
   final String backdropPath;
-  final List<int> genreIds;
-  final int id;
+  final List<Genre> genres;
+  final String id;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
@@ -17,7 +17,7 @@ class Movie {
   Movie({
     required this.adult,
     required this.backdropPath,
-    required this.genreIds,
+    required this.genres,
     required this.id,
     required this.originalLanguage,
     required this.originalTitle,
@@ -33,16 +33,17 @@ class Movie {
 
   factory Movie.skeleton() {
     return Movie(
-      id: 0,
+      id: '0',
       title: 'Skeleton title',
-      overview: 'Skeleton overview',
+      overview:
+          'Lorem aliquip adipisicing commodo sunt reprehenderit qui sint mollit adipisicing. Labore nisi elit eu in incididunt occaecat commodo do consequat Lorem eiusmod dolor. Ullamco elit irure aute ad aliquip id incididunt excepteur amet.',
       posterPath:
           'https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
       backdropPath:
           'https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
       releaseDate: DateTime(2023, 01, 01),
       voteAverage: 0.0,
-      genreIds: [1, 2],
+      genres: [Genre(id: 1, name: "Genre")],
       originalLanguage: 'en',
       originalTitle: 'Skeleton original title',
       popularity: 0.0,
@@ -51,4 +52,12 @@ class Movie {
       adult: false,
     );
   }
+}
+
+
+class Genre {
+  final int id;
+  final String name;
+
+  Genre({required this.id, required this.name});
 }

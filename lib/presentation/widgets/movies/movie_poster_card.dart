@@ -9,11 +9,15 @@ import 'package:trivvo/domain/entities/entities.dart';
 class MoviePosterCard extends StatelessWidget {
   final bool isSkeleton;
   final Movie movie;
+  final double width;
+  final double height;
 
   const MoviePosterCard({
     super.key,
-    required this.movie,
     this.isSkeleton = false,
+    required this.movie,
+    this.width = 166.5,
+    this.height = 250.0,
   });
 
   @override
@@ -32,13 +36,13 @@ class MoviePosterCard extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => context.push('/movie/${movie.id}'),
                 child: SizedBox(
-                  width: 166.5,
-                  height: 250.0,
+                  width: width,
+                  height: height,
                   child: Stack(
                     children: [
                       CachedNetworkImage(
-                        width: 166.5,
-                        height: 250.0,
+                        width: double.infinity,
+                        height: double.infinity,
                         imageUrl: movie.posterPath,
                         progressIndicatorBuilder: (context, url, progress) =>
                             SkeletonBox(),

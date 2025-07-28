@@ -22,7 +22,7 @@ class TmdbDatasource extends MoviesDatasource {
 
     return TmdbMovieListResponse.fromJson(
       response.data,
-    ).results.map((movie) => MovieMapper.tmdbToEntity(movie)).toList();
+    ).results.map((movie) => MovieMapper.tmdbListToEntity(movie)).toList();
   }
 
   @override
@@ -49,5 +49,24 @@ class TmdbDatasource extends MoviesDatasource {
   @override
   Future<List<Movie>> fetchUpcoming({int page = 1}) {
     return _fetchMoviesFromPath('/movie/upcoming');
+  }
+
+  @override
+  Future<Movie> fetchMovieDetails(String movieId) async {
+    final response = await dio.get('/movie/$movieId');
+    final movie = MovieMapper.tmdbDetailToEntity(
+      MovieTmdbDetail.fromJson(response.data),
+    );
+
+    return movie;
+  }
+
+  @override
+  Future<List<Cast>> fetchMovieCredits(String movieId) async {
+    final response = await dio.get('/movie/$movieId/credits');
+
+    return TmdbCreditsResponse.fromJson(
+      response.data,
+    ).cast.map((e) => CastMapper.tmdbToEntity(e)).toList();
   }
 }

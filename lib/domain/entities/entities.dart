@@ -1,2 +1,2 @@
+export 'cast.dart';
 export 'movie.dart';
-export 'genre.dart';

@@ -86,23 +86,18 @@ class MovieCarouselItem extends ConsumerWidget {
                     FadeIn(
                       duration: const Duration(seconds: 2),
                       delay: Duration(seconds: 3),
-                      child: Text(
-                        '•',
-                        style: textTheme.headlineSmall!.copyWith(
-                          color: Colors.white70,
-                        ),
-                      ),
+                      child: Icon(Icons.circle, size: 5, color: Colors.white70),
                     ),
 
                     FadeIn(
                       duration: const Duration(seconds: 1),
                       delay: Duration(seconds: 4),
                       child: Text(
-                        movie.genreIds
+                        movie.genres
                             .map(
-                              (genreId) => ref
+                              (genre) => ref
                                   .read(movieGenresProvider.notifier)
-                                  .getGenreNameById(genreId),
+                                  .getGenreNameById(genre.id),
                             )
                             .take(4)
                             .join(', '),

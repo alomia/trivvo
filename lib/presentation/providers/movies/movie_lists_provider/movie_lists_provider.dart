@@ -7,7 +7,7 @@ import 'package:trivvo/presentation/providers/providers.dart';
 part 'movie_lists_provider.g.dart';
 
 
-@riverpod
+@Riverpod(keepAlive: true)
 class NowPlayingMovies extends _$NowPlayingMovies {
   @override
   MovieListState build() {
@@ -29,7 +29,7 @@ class NowPlayingMovies extends _$NowPlayingMovies {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class TopRatedMovies extends _$TopRatedMovies {
   @override
   MovieListState build() {
@@ -51,7 +51,7 @@ class TopRatedMovies extends _$TopRatedMovies {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class UpcomingMovies extends _$UpcomingMovies {
   @override
   MovieListState build() {
