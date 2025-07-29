@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:trivvo/domain/entities/entities.dart';
 
 class MovieSynopsis extends StatelessWidget {
   final bool isLoading;
@@ -10,28 +11,34 @@ class MovieSynopsis extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return overview.isNotEmpty
-        ? Skeletonizer(
-            enabled: isLoading,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 10.0,
-                children: [
-                  Text(
-                    'Sinopsis',
-                    style: textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 1.2,
-                    ),
-                  ),
 
-                  Text(overview, style: textTheme.bodyMedium),
-                ],
+    if (!isLoading && overview.isEmpty) {
+      return SizedBox.shrink();
+    }
+
+    return Skeletonizer(
+      enabled: isLoading,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 10.0,
+            children: [
+              Text(
+                'Sinopsis',
+                style: textTheme.titleLarge
               ),
-            ),
-          )
-        : SizedBox();
+
+              Text(
+                isLoading ? Movie.skeleton().overview : overview,
+                style: textTheme.bodyMedium,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

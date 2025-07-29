@@ -36,4 +36,9 @@ class MovieRepositoryImpl extends MoviesRepository {
   Future<List<Cast>> fetchMovieCredits(String movieId) {
     return datasource.fetchMovieCredits(movieId);
   }
+  
+  @override
+  Future<List<Movie>> fetchRecommendedMovies(String movieId) {
+    return datasource.fetchRecommendedMovies(movieId);
+  }
 }

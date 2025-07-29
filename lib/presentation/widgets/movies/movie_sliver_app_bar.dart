@@ -27,6 +27,7 @@ class MovieSliverAppBar extends StatelessWidget {
       flexibleSpace: Skeletonizer(
         enabled: isLoading,
         child: FlexibleSpaceBar(
+          collapseMode: CollapseMode.parallax,
           background: Stack(
             children: [
               MovieBackdrop(backdropPath),

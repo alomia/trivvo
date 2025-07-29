@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:trivvo/domain/entities/entities.dart';
 import 'package:trivvo/presentation/providers/providers.dart';
-import 'package:trivvo/presentation/widgets/widgets.dart';
 
 class MovieCarouselItem extends ConsumerWidget {
   final bool isSkeleton;
@@ -28,8 +27,6 @@ class MovieCarouselItem extends ConsumerWidget {
               height: double.infinity,
               imageUrl: movie.backdropPath,
               fit: BoxFit.cover,
-              progressIndicatorBuilder: (context, url, progress) =>
-                  SkeletonBox(),
             ),
           ),
 

@@ -21,13 +21,7 @@ class MovieCast extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
-            child: Text(
-              'Cast',
-              style: textTheme.titleLarge!.copyWith(
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.2,
-              ),
-            ),
+            child: Text('Cast', style: textTheme.titleLarge),
           ),
 
           SizedBox(

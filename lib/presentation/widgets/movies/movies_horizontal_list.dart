@@ -30,30 +30,26 @@ class MoviesHorizontalList extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: FadeIn(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(title, style: textTheme.titleLarge),
-                  TextButton(onPressed: () {}, child: Text('Ver todos')),
-                ],
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(title, style: textTheme.titleLarge),
+                TextButton(onPressed: () {}, child: Text('Ver todos')),
+              ],
             ),
           ),
-
+      
           SizedBox(
             height: 250.0,
             child: ListView.builder(
               itemCount: isLoading ? 5 : movies.length,
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 10.0),
-
+      
               itemBuilder: (context, index) {
                 final movie = isLoading ? Movie.skeleton() : movies[index];
-
-                return FadeIn(
-                  child: MoviePosterCard(isSkeleton: isLoading, movie: movie),
-                );
+      
+                return MoviePosterCard(isLoading: isLoading, movie: movie);
               },
             ),
           ),

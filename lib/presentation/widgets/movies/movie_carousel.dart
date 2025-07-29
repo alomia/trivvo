@@ -33,7 +33,7 @@ class MovieCarousel extends StatelessWidget {
           itemBuilder: (context, index, realIndex) {
             final movie = isLoading ? Movie.skeleton() : movies[index];
 
-            return MovieCarouselItem(isSkeleton: isLoading, movie);
+            return MovieCarouselItem(movie);
           },
         ),
       ),

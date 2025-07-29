@@ -69,4 +69,9 @@ class TmdbDatasource extends MoviesDatasource {
       response.data,
     ).cast.map((e) => CastMapper.tmdbToEntity(e)).toList();
   }
+
+  @override
+  Future<List<Movie>> fetchRecommendedMovies(String movieId) {
+    return _fetchMoviesFromPath('/movie/$movieId/recommendations');
+  }
 }

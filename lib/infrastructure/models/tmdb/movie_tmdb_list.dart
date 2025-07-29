@@ -1,6 +1,6 @@
 class MovieTmdbList {
     final bool adult;
-    final String backdropPath;
+    final String? backdropPath;
     final List<int> genreIds;
     final String id;
     final String originalLanguage;

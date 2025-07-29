@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-
 class MovieBackdrop extends StatelessWidget {
   final String path;
 
@@ -14,14 +13,21 @@ class MovieBackdrop extends StatelessWidget {
       height: 400.0,
       child: Stack(
         children: [
-          CachedNetworkImage(
-            width: double.infinity,
-            height: double.infinity,
-            imageUrl: path,
-            fit: BoxFit.cover,
+          path.isNotEmpty
+              ? CachedNetworkImage(
+                  width: double.infinity,
+                  height: double.infinity,
+                  imageUrl: path,
+                  fit: BoxFit.cover,
 
-            // progressIndicatorBuilder: (context, url, progress) => SkeletonBox(),
-          ),
+                  // progressIndicatorBuilder: (context, url, progress) => SkeletonBox(),
+                )
+              : Image.asset(
+                  'assets/images/blank-image.jpg',
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                ),
 
           Container(
             decoration: BoxDecoration(

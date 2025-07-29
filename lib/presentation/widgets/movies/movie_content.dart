@@ -10,7 +10,6 @@ class MovieContent extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) => Column(
-          spacing: 10.0,
           children: children),
         childCount: 1,
       ),

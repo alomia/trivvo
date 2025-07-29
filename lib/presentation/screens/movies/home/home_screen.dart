@@ -18,59 +18,47 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _HomeView extends ConsumerStatefulWidget {
+class _HomeView extends ConsumerWidget {
   const _HomeView();
 
   @override
-  ConsumerState<_HomeView> createState() => _HomeViewState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nowPlayingMoviesState = ref.watch(nowPlayingMoviesProvider);
+    final nowPlayingMovies = nowPlayingMoviesState.value;
 
-class _HomeViewState extends ConsumerState<_HomeView> {
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(upcomingMoviesProvider.notifier).loadNextPage();
-      ref.read(topRatedMoviesProvider.notifier).loadNextPage();
-      ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
-      ref.read(movieGenresProvider.notifier).fetchMovieGenres();
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    ref.watch(movieGenresProvider);
     final upcomingMoviesState = ref.watch(upcomingMoviesProvider);
-    final popularMoviesState = ref.watch(topRatedMoviesProvider);
-    final nowPlayingState = ref.watch(nowPlayingMoviesProvider);
-    final moviesCarousel = ref.watch(moviesCarouselProvider);
+    final upcomingMovies = upcomingMoviesState.value;
+
+    final topRatedMoviesState = ref.watch(topRatedMoviesProvider);
+    final topRatedMovies = topRatedMoviesState.value;
 
     return SingleChildScrollView(
       child: Column(
-        spacing: 25.0,
         children: [
           MovieCarousel(
-            movies: moviesCarousel,
-            isLoading: nowPlayingState.isLoading,
+            movies: nowPlayingMovies?.sublist(0, 6) ?? [],
+            isLoading: nowPlayingMoviesState.isLoading,
           ),
 
+          const SizedBox(height: 25.0),
           MoviesHorizontalList(
             title: 'En cines',
-            movies: nowPlayingState.movies,
-            isLoading: nowPlayingState.isLoading,
+            movies: nowPlayingMovies ?? [],
+            isLoading: nowPlayingMoviesState.isLoading,
           ),
 
+          const SizedBox(height: 25.0),
           MoviesHorizontalList(
-            title: 'Próximamente',
-            movies: upcomingMoviesState.movies,
+            title: 'próximamente',
+            movies: upcomingMovies ?? [],
             isLoading: upcomingMoviesState.isLoading,
           ),
 
+          const SizedBox(height: 25.0),
           MoviesHorizontalList(
             title: 'Mejor valoradas',
-            movies: popularMoviesState.movies,
-            isLoading: popularMoviesState.isLoading,
+            movies: topRatedMovies ?? [],
+            isLoading: topRatedMoviesState.isLoading,
           ),
 
           SizedBox(height: 20.0),

@@ -4,24 +4,21 @@ import 'package:trivvo/presentation/providers/providers.dart';
 
 part 'genre_lists_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class MovieGenres extends _$MovieGenres {
   @override
-  List<Genre> build() {
-    return [];
+  Future<List<Genre>> build() async {
+    return ref.watch(moviesRepositoryProvider).fetchMovieGenres();
   }
 
-  Future<void> fetchMovieGenres() async {
-    final moviesRepository = ref.watch(moviesRepositoryProvider);
-    final List<Genre> genres = await moviesRepository.fetchMovieGenres();
+  String getGenreNameById(int id) {
+    final genres = state.valueOrNull;
 
-    state = [...state, ...genres];
-  }
+    if (genres == null) return 'Unknown';
 
-  String getGenreNameById(int genreId) {
-    final genre = state.firstWhere(
-      (genre) => genre.id == genreId,
-      orElse: () => Genre(id: -1, name: ''),
+    final genre = genres.firstWhere(
+      (genre) => genre.id == id,
+      orElse: () => Genre(id: id, name: 'Unknown'),
     );
 
     return genre.name;

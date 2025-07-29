@@ -10,11 +10,19 @@ class MoviePoster extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
-      child: CachedNetworkImage(imageUrl: path, 
-        width: 140.0,
-        height: 210.0,
-        fit: BoxFit.cover,
-      ),
+      child: path.isNotEmpty
+          ? CachedNetworkImage(
+              imageUrl: path,
+              width: 140.0,
+              height: 210.0,
+              fit: BoxFit.cover,
+            )
+          : Image.asset(
+              'assets/images/blank-image.jpg',
+              width: 140.0,
+              height: 210.0,
+              fit: BoxFit.cover,
+            ),
     );
   }
 }

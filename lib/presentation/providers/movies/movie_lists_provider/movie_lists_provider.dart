@@ -1,74 +1,32 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:trivvo/domain/entities/entities.dart';
-import 'package:trivvo/presentation/providers/movies/movie_lists_provider/movie_list_state.dart';
 import 'package:trivvo/presentation/providers/providers.dart';
 
 part 'movie_lists_provider.g.dart';
 
-
 @Riverpod(keepAlive: true)
-class NowPlayingMovies extends _$NowPlayingMovies {
-  @override
-  MovieListState build() {
-    return MovieListState(isLoading: false, movies: []);
-  }
-
-  Future<void> loadNextPage() async {
-    if (state.isLoading) return;
-
-    state = state.copyWith(isLoading: true);
-
-    final moviesRepository = ref.watch(moviesRepositoryProvider);
-    final List<Movie> movies = await moviesRepository.fetchNowPlaying();
-
-    state = state.copyWith(
-      isLoading: false,
-      movies: [...state.movies, ...movies],
-    );
-  }
+Future<List<Movie>> nowPlayingMovies(Ref ref) {
+  return ref.watch(moviesRepositoryProvider).fetchNowPlaying();
 }
 
 @Riverpod(keepAlive: true)
-class TopRatedMovies extends _$TopRatedMovies {
-  @override
-  MovieListState build() {
-    return MovieListState(isLoading: false, movies: []);
-  }
-
-  Future<void> loadNextPage() async {
-    if (state.isLoading) return;
-
-    state = state.copyWith(isLoading: true);
-
-    final moviesRepository = ref.watch(moviesRepositoryProvider);
-    final List<Movie> movies = await moviesRepository.fetchTopRated();
-
-    state = state.copyWith(
-      isLoading: false,
-      movies: [...state.movies, ...movies],
-    );
-  }
+Future<List<Movie>> movieCarousel(Ref ref) {
+  return ref.watch(moviesRepositoryProvider).fetchNowPlaying();
 }
 
 @Riverpod(keepAlive: true)
-class UpcomingMovies extends _$UpcomingMovies {
-  @override
-  MovieListState build() {
-    return MovieListState(isLoading: false, movies: []);
-  }
+Future<List<Movie>> upcomingMovies(Ref ref) {
+  return ref.watch(moviesRepositoryProvider).fetchUpcoming();
+}
 
-  Future<void> loadNextPage() async {
-    if (state.isLoading) return;
+@Riverpod(keepAlive: true)
+Future<List<Movie>> topRatedMovies(Ref ref) {
+  return ref.watch(moviesRepositoryProvider).fetchTopRated();
+}
 
-    state = state.copyWith(isLoading: true);
-
-    final moviesRepository = ref.watch(moviesRepositoryProvider);
-    final List<Movie> movies = await moviesRepository.fetchUpcoming();
-
-    state = state.copyWith(
-      isLoading: false,
-      movies: [...state.movies, ...movies],
-    );
-  }
+@Riverpod(keepAlive: true)
+Future<List<Movie>> recommendedMovies(Ref ref, String movieId) {
+  return ref.watch(moviesRepositoryProvider).fetchRecommendedMovies(movieId);
 }
