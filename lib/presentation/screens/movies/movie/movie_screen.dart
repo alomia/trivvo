@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:trivvo/presentation/providers/providers.dart';
 import 'package:trivvo/presentation/widgets/widgets.dart';
 
@@ -33,36 +34,64 @@ class _MovieView extends ConsumerWidget {
     final similarMoviesState = ref.watch(recommendedMoviesProvider(movieId));
     final similarMovies = similarMoviesState.value;
 
+    final colorScheme = Theme.of(context).colorScheme;
+
     return CustomScrollView(
       slivers: [
         MovieSliverAppBar(
           isLoading: movieState.isLoading,
           backdropPath: movie?.backdropPath ?? '',
-          posterPath: movie?.posterPath ?? '',
-          title: movie?.title ?? 'hola',
-          releaseYear: movie?.releaseDate.year ?? 0,
-          genres: movie?.genres.map((genre) => genre.name).toList() ?? [],
         ),
 
-        MovieContent(
-          children: [
-            MovieSynopsis(
-              movie?.overview ?? '',
-              isLoading: movieState.isLoading,
-            ),
+        SliverToBoxAdapter(
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 10.0),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Skeletonizer(
+                    enabled: movieState.isLoading,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MoviePoster(movie?.posterPath ?? ''),
+                        SizedBox(width: 16.0),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.59,
+                          child: MovieInfoHeader(
+                            title: movie?.title ?? '',
+                            releaseYear: movie?.releaseDate.year ?? 0,
+                            genres: movie?.genres.map((e) => e.name).toList() ?? [],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+            
+                const SizedBox(height: 25.0),
+                MovieSynopsis(
+                  movie?.overview ?? '',
+                  isLoading: movieState.isLoading,
+                ),
+            
+                const SizedBox(height: 25.0),
+                MovieCast(castList: cast ?? [], isLoading: castState.isLoading),
+            
+                MoviesHorizontalList(
+                  title: 'Recomendaciones',
+                  movies: similarMovies ?? [],
+                  isLoading: similarMoviesState.isLoading,
+                ),
 
-            const SizedBox(height: 25.0),
-            MovieCast(castList: cast ?? [], isLoading: castState.isLoading),
-
-            const SizedBox(height: 25.0),
-            MoviesHorizontalList(
-              title: 'Recomendaciones',
-              movies: similarMovies ?? [],
-              isLoading: similarMoviesState.isLoading,
+                const SizedBox(height: 50.0),
+              ],
             ),
-          ],
+          ),
         ),
       ],
     );
   }
 }
+

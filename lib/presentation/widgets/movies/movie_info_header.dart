@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class MovieInfoHeader extends StatelessWidget {
   final String title;
@@ -16,26 +17,47 @@ class MovieInfoHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.end,
+    return SizedBox(
+      height: 210.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.max,
+        children: [
 
-      spacing: 6.0,
-      children: [
-        Text(
-          title,
-          style: textTheme.headlineSmall!.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 1.2,
+          Text(
+            title,
+            style: textTheme.headlineSmall!.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 1.2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-        ),
 
-        _MovieMetadata(releaseYear: releaseYear, genres: genres),
-      ],
+          const SizedBox(height: 5.0),
+          _MovieMetadata(releaseYear: releaseYear, genres: genres),
+
+          SizedBox(height: 10.0),
+
+          Row(
+            children: [
+              IconButton(
+                onPressed: () => {},
+                icon: Icon(PhosphorIcons.heart()),
+              ),
+              IconButton(
+                onPressed: () => {},
+                icon: Icon(PhosphorIcons.downloadSimple()),
+              ),
+
+              Expanded(child: FilledButton.tonal(onPressed: () {}, child: Text('Mirar Ahora'))),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
