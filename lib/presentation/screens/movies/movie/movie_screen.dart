@@ -34,8 +34,6 @@ class _MovieView extends ConsumerWidget {
     final similarMoviesState = ref.watch(recommendedMoviesProvider(movieId));
     final similarMovies = similarMoviesState.value;
 
-    final colorScheme = Theme.of(context).colorScheme;
-
     return CustomScrollView(
       slivers: [
         MovieSliverAppBar(
@@ -80,6 +78,7 @@ class _MovieView extends ConsumerWidget {
                 MovieCast(castList: cast ?? [], isLoading: castState.isLoading),
             
                 MoviesHorizontalList(
+                  category: 'popular',
                   title: 'Recomendaciones',
                   movies: similarMovies ?? [],
                   isLoading: similarMoviesState.isLoading,

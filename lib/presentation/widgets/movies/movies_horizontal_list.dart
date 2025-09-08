@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:trivvo/domain/entities/entities.dart';
 
 import 'package:trivvo/presentation/widgets/movies/movie_poster_card.dart';
 
 class MoviesHorizontalList extends StatelessWidget {
+  final String category;
   final VoidCallback? loadNextPage;
   final bool isLoading;
   final String title;
@@ -16,6 +18,7 @@ class MoviesHorizontalList extends StatelessWidget {
     this.isLoading = false,
     required this.title,
     required this.movies,
+    required this.category,
   });
 
   @override
@@ -33,22 +36,29 @@ class MoviesHorizontalList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(title, style: textTheme.titleLarge),
-                TextButton(onPressed: () {}, child: Text('Ver todos')),
+                TextButton(
+                  onPressed: () => context.push('/all/$category'),
+                  child: Text('Ver todos'),
+                ),
               ],
             ),
           ),
-      
+
           SizedBox(
             height: 250.0,
             child: ListView.builder(
               itemCount: isLoading ? 5 : movies.length,
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 10.0),
-      
+
               itemBuilder: (context, index) {
                 final movie = isLoading ? Movie.skeleton() : movies[index];
-      
-                return MoviePosterCard(isLoading: isLoading, movie: movie);
+
+                return SizedBox(
+                  width: 166.5,
+                  height: 250.0,
+                  child: MoviePosterCard(isLoading: isLoading, movie: movie),
+                );
               },
             ),
           ),

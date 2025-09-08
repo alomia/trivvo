@@ -23,14 +23,16 @@ class MovieMapper {
 
   static Movie tmdbDetailToEntity(MovieTmdbDetail movie) => Movie(
     adult: movie.adult,
-    backdropPath: '$_imageBaseUrl${movie.backdropPath}',
+    backdropPath: movie.backdropPath == null
+        ? ''
+        : '$_imageBaseUrl${movie.backdropPath}',
     genres: movie.genres
         .map((genre) => Genre(id: genre.id, name: genre.name))
         .toList(),
     id: movie.id,
     originalLanguage: movie.originalLanguage,
     originalTitle: movie.originalTitle,
-    overview: movie.overview,
+    overview: movie.overview ?? '',
     popularity: movie.popularity,
     posterPath: '$_imageBaseUrl${movie.posterPath}',
     releaseDate: movie.releaseDate,

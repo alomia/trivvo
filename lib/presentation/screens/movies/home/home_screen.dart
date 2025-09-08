@@ -42,13 +42,15 @@ class _HomeView extends ConsumerWidget {
 
           const SizedBox(height: 25.0),
           MoviesHorizontalList(
-            title: 'En cines',
+            category: 'now-playing',
+            title: 'Estrenos',
             movies: nowPlayingMovies ?? [],
             isLoading: nowPlayingMoviesState.isLoading,
           ),
 
           const SizedBox(height: 25.0),
           MoviesHorizontalList(
+            category: 'upcoming',
             title: 'próximamente',
             movies: upcomingMovies ?? [],
             isLoading: upcomingMoviesState.isLoading,
@@ -56,6 +58,7 @@ class _HomeView extends ConsumerWidget {
 
           const SizedBox(height: 25.0),
           MoviesHorizontalList(
+            category: 'top-rated',
             title: 'Mejor valoradas',
             movies: topRatedMovies ?? [],
             isLoading: topRatedMoviesState.isLoading,

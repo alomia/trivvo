@@ -1,6 +1,6 @@
 class MovieTmdbDetail {
     final bool adult;
-    final String backdropPath;
+    final String? backdropPath;
     final dynamic belongsToCollection;
     final int budget;
     final List<GenreTmdb> genres;
@@ -10,7 +10,7 @@ class MovieTmdbDetail {
     final List<String> originCountry;
     final String originalLanguage;
     final String originalTitle;
-    final String overview;
+    final String? overview;
     final double popularity;
     final String posterPath;
     final List<ProductionCompany> productionCompanies;
