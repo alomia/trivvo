@@ -20,6 +20,7 @@ final darkColorScheme = ColorScheme(
 );
 
 final lightTheme = ThemeData.from(colorScheme: lightColorScheme);
+
 final darkTheme = ThemeData.from(colorScheme: darkColorScheme).copyWith(
   splashFactory: NoSplash.splashFactory,
   scaffoldBackgroundColor: darkColorScheme.surface,

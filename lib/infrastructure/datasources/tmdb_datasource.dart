@@ -74,4 +74,16 @@ class TmdbDatasource extends MoviesDatasource {
   Future<List<Movie>> fetchRecommendedMovies(String movieId) {
     return _fetchMoviesFromPath('/movie/$movieId/recommendations');
   }
+
+  @override
+  Future<List<Movie>> fetchSearchMovies(String query) async {
+    final response = await dio.get(
+      '/search/movie',
+      queryParameters: {'query': query},
+    );
+
+    return TmdbMovieListResponse.fromJson(
+      response.data,
+    ).results.map((movie) => MovieMapper.tmdbListToEntity(movie)).toList();
+  }
 }

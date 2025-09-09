@@ -9,4 +9,6 @@ abstract class MoviesRepository {
   Future<Movie> fetchMovieDetails(String movieId);
   Future<List<Cast>> fetchMovieCredits(String movieId);
   Future<List<Movie>> fetchRecommendedMovies(String movieId);
+
+  Future<List<Movie>> fetchSearchMovies(String query);
 }

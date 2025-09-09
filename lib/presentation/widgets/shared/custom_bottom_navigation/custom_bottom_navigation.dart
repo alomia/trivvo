@@ -1,17 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:trivvo/presentation/delegates/delegates.dart';
+import 'package:trivvo/presentation/providers/providers.dart';
 
-class CustomBottomNavigation extends StatelessWidget {
+class CustomBottomNavigation extends ConsumerStatefulWidget {
   const CustomBottomNavigation({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    int selectedIndex = 0;
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CustomBottomNavigationState();
+}
 
+class _CustomBottomNavigationState
+    extends ConsumerState<CustomBottomNavigation> {
+  int _selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       elevation: 0.0,
-      currentIndex: selectedIndex,
+      currentIndex: _selectedIndex,
+      onTap: (value) {
+        switch (value) {
+          case 3:
+            showSearch(
+              context: context,
+              delegate: SearchMovieDelegate(
+                searchMovies: ref
+                    .read(moviesRepositoryProvider)
+                    .fetchSearchMovies,
+              ),
+            );
+        }
+
+        setState(() {
+          _selectedIndex = value;
+        });
+      },
+
       items: [
         BottomNavigationBarItem(
           label: 'Home',
@@ -28,6 +56,7 @@ class CustomBottomNavigation extends StatelessWidget {
           icon: Icon(PhosphorIcons.downloadSimple()),
           activeIcon: Icon(PhosphorIconsFill.downloadSimple),
         ),
+
         BottomNavigationBarItem(
           label: 'Search',
           icon: Icon(PhosphorIcons.magnifyingGlass()),
@@ -37,3 +66,4 @@ class CustomBottomNavigation extends StatelessWidget {
     );
   }
 }
+
