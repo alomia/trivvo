@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trivvo/presentation/delegates/delegates.dart';
+import 'package:trivvo/presentation/providers/providers.dart';
 
 class CustomBottomNavigation extends ConsumerWidget {
   const CustomBottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final moviesRepositoryState = ref.watch(moviesRepositoryProvider);
+
     int _selectedIndex = 0;
 
     return BottomNavigationBar(
@@ -19,7 +22,9 @@ class CustomBottomNavigation extends ConsumerWidget {
           case 3:
             showSearch(
               context: context,
-              delegate: SearchMovieDelegate()
+              delegate: SearchMovieDelegate(
+                searchMovies: moviesRepositoryState.fetchSearchMovies,
+              ),
             );
         }
       },
