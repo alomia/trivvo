@@ -2,22 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trivvo/presentation/delegates/delegates.dart';
-import 'package:trivvo/presentation/providers/providers.dart';
 
-class CustomBottomNavigation extends ConsumerStatefulWidget {
+class CustomBottomNavigation extends ConsumerWidget {
   const CustomBottomNavigation({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _CustomBottomNavigationState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    int _selectedIndex = 0;
 
-class _CustomBottomNavigationState
-    extends ConsumerState<CustomBottomNavigation> {
-  int _selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       elevation: 0.0,
@@ -27,17 +19,9 @@ class _CustomBottomNavigationState
           case 3:
             showSearch(
               context: context,
-              delegate: SearchMovieDelegate(
-                searchMovies: ref
-                    .read(moviesRepositoryProvider)
-                    .fetchSearchMovies,
-              ),
+              delegate: SearchMovieDelegate()
             );
         }
-
-        setState(() {
-          _selectedIndex = value;
-        });
       },
 
       items: [
@@ -66,4 +50,3 @@ class _CustomBottomNavigationState
     );
   }
 }
-

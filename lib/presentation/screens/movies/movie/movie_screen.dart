@@ -94,3 +94,4 @@ class _MovieView extends ConsumerWidget {
   }
 }
 
+
