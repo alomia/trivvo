@@ -16,6 +16,7 @@ final darkColorScheme = ColorScheme(
   error: Colors.red,
   onError: Colors.red,
   surface: darkBackground,
+  surfaceContainerHigh: Color(0xFF111924),
   onSurface: Colors.white,
 );
 
