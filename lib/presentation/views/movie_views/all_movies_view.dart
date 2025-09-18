@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:trivvo/presentation/providers/movies/movie_lists_provider/movie_lists_provider.dart';
+import 'package:trivvo/presentation/providers/providers.dart';
+
 import 'package:trivvo/presentation/widgets/widgets.dart';
 
-class AllMoviesScreen extends ConsumerWidget {
-  static const name = 'all-movies-screen';
+class AllMoviesView extends ConsumerWidget {
+  static const name = 'all-movies-view';
 
   final String category;
 
-  const AllMoviesScreen({super.key, required this.category});
+  const AllMoviesView({super.key, required this.category});
 
    static const Map<String, String> _titles = {
     'now-playing': 'Estrenos',

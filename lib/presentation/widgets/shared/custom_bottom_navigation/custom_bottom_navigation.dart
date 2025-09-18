@@ -10,34 +10,62 @@ import 'package:trivvo/presentation/providers/providers.dart';
 class CustomBottomNavigation extends ConsumerWidget {
   const CustomBottomNavigation({super.key});
 
+  int getCurrentIndex(BuildContext context) {
+    final currentLocation = GoRouterState.of(context).fullPath;
+
+    switch (currentLocation) {
+      case '/':
+        return 0;
+      case '/saved':
+        return 1;
+      case '/downloaded':
+        return 2;
+      default:
+        return 0;
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchQuery = ref.watch(searchQueryProvider);
     final searchedMovies = ref.read(searchedMoviesProvider);
     final searchedMoviesState = ref.read(searchedMoviesProvider.notifier);
 
-    int _selectedIndex = 0;
+    void onItemTapped(BuildContext context, int index) {
+      switch (index) {
+        case 0:
+          context.go('/');
+          break;
+
+        case 1:
+          context.go('/saved');
+          break;
+
+        case 2:
+          context.go('/downloaded');
+          break;
+
+        case 3:
+          showSearch<Movie?>(
+            query: searchQuery,
+            context: context,
+            delegate: SearchMovieDelegate(
+              initialMovies: searchedMovies,
+              searchMovies: searchedMoviesState.searchMoviesByQuery,
+            ),
+          ).then((movie) {
+            if (movie == null) return;
+            context.push('/movie/${movie.id}');
+          });
+          break;
+      }
+    }
 
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       elevation: 0.0,
-      currentIndex: _selectedIndex,
-      onTap: (value) {
-        switch (value) {
-          case 3:
-            showSearch<Movie?>(
-              query: searchQuery,
-              context: context,
-              delegate: SearchMovieDelegate(
-                initialMovies: searchedMovies,
-                searchMovies: searchedMoviesState.searchMoviesByQuery,
-              ),
-            ).then((movie) {
-              if (movie == null) return;
-              context.push('/movie/${movie.id}');
-            });
-        }
-      },
+      currentIndex: getCurrentIndex(context),
+      onTap: (value) => onItemTapped(context, value),
 
       items: [
         BottomNavigationBarItem(

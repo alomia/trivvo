@@ -4,24 +4,10 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:trivvo/presentation/providers/providers.dart';
 import 'package:trivvo/presentation/widgets/widgets.dart';
 
-class MovieScreen extends StatelessWidget {
-  static const name = 'movie-screen';
-
+class MovieView extends ConsumerWidget {
   final String movieId;
 
-  const MovieScreen({super.key, required this.movieId});
-
-  @override
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: _MovieView(movieId));
-  }
-}
-
-class _MovieView extends ConsumerWidget {
-  final String movieId;
-
-  const _MovieView(this.movieId);
+  const MovieView({super.key, required this.movieId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -60,23 +46,24 @@ class _MovieView extends ConsumerWidget {
                           child: MovieInfoHeader(
                             title: movie?.title ?? '',
                             releaseYear: movie?.releaseDate.year ?? 0,
-                            genres: movie?.genres.map((e) => e.name).toList() ?? [],
+                            genres:
+                                movie?.genres.map((e) => e.name).toList() ?? [],
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-            
+
                 const SizedBox(height: 25.0),
                 MovieSynopsis(
                   movie?.overview ?? '',
                   isLoading: movieState.isLoading,
                 ),
-            
+
                 const SizedBox(height: 25.0),
                 MovieCast(castList: cast ?? [], isLoading: castState.isLoading),
-            
+
                 MoviesHorizontalList(
                   category: 'popular',
                   title: 'Recomendaciones',
@@ -93,5 +80,3 @@ class _MovieView extends ConsumerWidget {
     );
   }
 }
-
-

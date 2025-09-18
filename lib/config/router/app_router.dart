@@ -1,25 +1,49 @@
 import 'package:go_router/go_router.dart';
 import 'package:trivvo/presentation/screens/screens.dart';
+import 'package:trivvo/presentation/views/views.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
-    GoRoute(
-      path: '/',
-      name: HomeScreen.name,
-      builder: (context, state) => HomeScreen(),
-      routes: [
-        GoRoute(
-          path: 'movie/:id',
-          name: MovieScreen.name,
-          builder: (context, state) =>
-              MovieScreen(movieId: state.pathParameters['id']!),
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) => HomeScreen(child: navigationShell),
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/',
+              builder: (context, state) => HomeView(),
+              routes: [
+                GoRoute(
+                  path: 'movie/:id',
+                  builder: (context, state) =>
+                      MovieView(movieId: state.pathParameters['id']!),
+                ),
+
+                GoRoute(
+                  path: 'all/:category',
+                  builder: (context, state) => AllMoviesView(
+                    category: state.pathParameters['category']!,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-        GoRoute(
-          path: 'all/:category',
-          name: AllMoviesScreen.name,
-          builder: (context, state) =>
-              AllMoviesScreen(category: state.pathParameters['category']!),
+
+        StatefulShellBranch(
+          routes: [
+            GoRoute(path: '/saved', builder: (context, state) => SavedView()),
+          ],
+        ),
+
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/downloaded',
+              builder: (context, state) => DownloadedView(),
+            ),
+          ],
         ),
       ],
     ),
