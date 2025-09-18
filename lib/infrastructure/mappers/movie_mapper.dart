@@ -13,7 +13,9 @@ class MovieMapper {
     originalTitle: movie.originalTitle,
     overview: movie.overview,
     popularity: movie.popularity,
-    posterPath: '$_imageBaseUrl${movie.posterPath}',
+    posterPath: movie.posterPath == null
+        ? "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
+        : "$_imageBaseUrl${movie.posterPath}",
     releaseDate: movie.releaseDate,
     title: movie.title,
     video: movie.video,

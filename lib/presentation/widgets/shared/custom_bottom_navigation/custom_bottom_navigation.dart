@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import 'package:trivvo/domain/entities/entities.dart';
 import 'package:trivvo/presentation/delegates/delegates.dart';
 import 'package:trivvo/presentation/providers/providers.dart';
 
@@ -11,6 +14,9 @@ class CustomBottomNavigation extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final moviesRepositoryState = ref.watch(moviesRepositoryProvider);
 
+    final searchQuery = ref.watch(searchQueryProvider);
+    final searchQueryNotifier = ref.read(searchQueryProvider.notifier);
+
     int _selectedIndex = 0;
 
     return BottomNavigationBar(
@@ -20,12 +26,19 @@ class CustomBottomNavigation extends ConsumerWidget {
       onTap: (value) {
         switch (value) {
           case 3:
-            showSearch(
+            showSearch<Movie?>(
+              query: searchQuery,
               context: context,
               delegate: SearchMovieDelegate(
-                searchMovies: moviesRepositoryState.fetchSearchMovies,
+                searchMovies: (query) {
+                  searchQueryNotifier.updateQuery(query);
+                  return moviesRepositoryState.fetchSearchMovies(query);
+                },
               ),
-            );
+            ).then((movie) {
+              if (movie == null) return;
+              context.push('/movie/${movie.id}');
+            });
         }
       },
 
