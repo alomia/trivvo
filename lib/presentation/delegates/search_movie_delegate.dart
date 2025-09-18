@@ -11,10 +11,15 @@ typedef SearchMoviesCallback = Future<List<Movie>> Function(String query);
 
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
   final SearchMoviesCallback searchMovies;
+  List<Movie> initialMovies;
+
   StreamController<List<Movie>> debouncedMovies = StreamController.broadcast();
   Timer? _debounceTimer;
 
-  SearchMovieDelegate({required this.searchMovies});
+  SearchMovieDelegate({
+    required this.searchMovies,
+    required this.initialMovies,
+  });
 
   void clearStreams() {
     debouncedMovies.close();
@@ -24,18 +29,45 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
     if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
 
     _debounceTimer = Timer(Duration(milliseconds: 1000), () async {
-      if (query.isEmpty) {
-        debouncedMovies.add([]);
-        return;
-      }
-
       final movies = await searchMovies(query);
+      initialMovies = movies;
       debouncedMovies.add(movies);
     });
   }
 
   @override
   String? get searchFieldLabel => "Search Movies";
+
+Widget buildResultAndSuggestions() {
+    return StreamBuilder(
+      initialData: initialMovies,
+      stream: debouncedMovies.stream,
+      builder: (context, snapshot) {
+        final movies = snapshot.data ?? [];
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: ListView.builder(
+            itemCount: movies.length,
+            itemBuilder: (context, index) {
+              final movie = movies[index];
+
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: _MovieItem(
+                  movie: movie,
+                  onMovieSeleted: (context, movie) {
+                    clearStreams();
+                    close(context, movie);
+                  },
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -65,37 +97,14 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text("buildResults");
+    return buildResultAndSuggestions();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     _onQueryChanged(query);
 
-    return StreamBuilder(
-      stream: debouncedMovies.stream,
-      builder: (context, snapshot) {
-        final movies = snapshot.data ?? [];
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: ListView.builder(
-            itemCount: movies.length,
-            itemBuilder: (context, index) {
-              final movie = movies[index];
-
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: _MovieItem(movie: movie, onMovieSeleted: (context, movie) {
-                  clearStreams();
-                  close(context, movie);
-                }),
-              );
-            },
-          ),
-        );
-      },
-    );
+    return buildResultAndSuggestions();
   }
 }
 

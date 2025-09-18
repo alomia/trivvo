@@ -12,10 +12,9 @@ class CustomBottomNavigation extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final moviesRepositoryState = ref.watch(moviesRepositoryProvider);
-
     final searchQuery = ref.watch(searchQueryProvider);
-    final searchQueryNotifier = ref.read(searchQueryProvider.notifier);
+    final searchedMovies = ref.read(searchedMoviesProvider);
+    final searchedMoviesState = ref.read(searchedMoviesProvider.notifier);
 
     int _selectedIndex = 0;
 
@@ -30,10 +29,8 @@ class CustomBottomNavigation extends ConsumerWidget {
               query: searchQuery,
               context: context,
               delegate: SearchMovieDelegate(
-                searchMovies: (query) {
-                  searchQueryNotifier.updateQuery(query);
-                  return moviesRepositoryState.fetchSearchMovies(query);
-                },
+                initialMovies: searchedMovies,
+                searchMovies: searchedMoviesState.searchMoviesByQuery,
               ),
             ).then((movie) {
               if (movie == null) return;

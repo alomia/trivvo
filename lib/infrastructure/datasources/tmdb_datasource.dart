@@ -77,6 +77,8 @@ class TmdbDatasource extends MoviesDatasource {
 
   @override
   Future<List<Movie>> fetchSearchMovies(String query) async {
+    if (query.isEmpty) return [];
+
     final response = await dio.get(
       '/search/movie',
       queryParameters: {'query': query},
