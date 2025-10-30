@@ -19,7 +19,7 @@ class MoviePosterCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      margin: EdgeInsets.symmetric(horizontal: 5.0),
       shadowColor: Colors.black87,
       child: ClipRRect(
         borderRadius: BorderRadiusGeometry.circular(10.0),

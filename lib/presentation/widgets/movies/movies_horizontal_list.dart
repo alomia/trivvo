@@ -31,7 +31,7 @@ class MoviesHorizontalList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -49,7 +49,7 @@ class MoviesHorizontalList extends StatelessWidget {
             child: ListView.builder(
               itemCount: isLoading ? 5 : movies.length,
               scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
 
               itemBuilder: (context, index) {
                 final movie = isLoading ? Movie.skeleton() : movies[index];

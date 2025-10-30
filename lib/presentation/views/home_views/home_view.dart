@@ -26,7 +26,6 @@ class HomeView extends ConsumerWidget {
             isLoading: nowPlayingMoviesState.isLoading,
           ),
 
-          const SizedBox(height: 25.0),
           MoviesHorizontalList(
             category: 'now-playing',
             title: 'Estrenos',

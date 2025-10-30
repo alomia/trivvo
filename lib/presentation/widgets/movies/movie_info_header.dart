@@ -21,7 +21,7 @@ class MovieInfoHeader extends StatelessWidget {
       height: 210.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
 
@@ -53,7 +53,7 @@ class MovieInfoHeader extends StatelessWidget {
                 icon: Icon(PhosphorIcons.downloadSimple()),
               ),
 
-              Expanded(child: FilledButton.tonal(onPressed: () {}, child: Text('Mirar Ahora'))),
+              // Expanded(child: FilledButton.tonal(onPressed: () {}, child: Text('Mirar Ahora'))),
             ],
           ),
         ],
@@ -84,7 +84,7 @@ class _MovieMetadata extends StatelessWidget {
         Icon(Icons.circle, size: 5, color: Colors.white70),
 
         Text(
-          genres.map((e) => e).take(3).join(', '),
+          genres.map((e) => e).take(2).join(', '),
           style: textTheme.bodyMedium!.copyWith(color: Colors.white70),
         ),
       ],

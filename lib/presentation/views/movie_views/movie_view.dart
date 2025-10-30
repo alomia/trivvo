@@ -41,8 +41,7 @@ class MovieView extends ConsumerWidget {
                       children: [
                         MoviePoster(movie?.posterPath ?? ''),
                         SizedBox(width: 16.0),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.59,
+                        Expanded(
                           child: MovieInfoHeader(
                             title: movie?.title ?? '',
                             releaseYear: movie?.releaseDate.year ?? 0,
