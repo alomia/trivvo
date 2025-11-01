@@ -1,28 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'movies_repository_provider.dart';
+part of 'favorite_movies_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$moviesRepositoryHash() => r'dd035517ab30df01683eb4f2e9d49dce63a4d1fd';
+String _$favoriteMoviesNotifierHash() =>
+    r'1c393ad1acfe0a7b662fa3dd4e06f404f0a747bf';
 
-/// See also [moviesRepository].
-@ProviderFor(moviesRepository)
-final moviesRepositoryProvider =
-    AutoDisposeProvider<MovieRepositoryImpl>.internal(
-      moviesRepository,
-      name: r'moviesRepositoryProvider',
+/// See also [FavoriteMoviesNotifier].
+@ProviderFor(FavoriteMoviesNotifier)
+final favoriteMoviesNotifierProvider =
+    NotifierProvider<FavoriteMoviesNotifier, Map<String, Movie>>.internal(
+      FavoriteMoviesNotifier.new,
+      name: r'favoriteMoviesNotifierProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$moviesRepositoryHash,
+          : _$favoriteMoviesNotifierHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef MoviesRepositoryRef = AutoDisposeProviderRef<MovieRepositoryImpl>;
+typedef _$FavoriteMoviesNotifier = Notifier<Map<String, Movie>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

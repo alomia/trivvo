@@ -7,7 +7,7 @@ export 'movies/movie_carousel.dart';
 export 'movies/movie_cast.dart';
 export 'movies/movie_content.dart';
 export 'movies/movie_info_header.dart';
-export 'movies/movie_poster_card.dart';
+export 'movies/movie_poster.dart';
 export 'movies/movie_poster.dart';
 export 'movies/movie_sliver_app_bar.dart';
 export 'movies/movie_synopsis.dart';

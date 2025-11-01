@@ -36,7 +36,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   }
 
   @override
-  String? get searchFieldLabel => "Search Movies";
+  String? get searchFieldLabel => "Buscar películas";
 
 Widget buildResultAndSuggestions() {
     return StreamBuilder(

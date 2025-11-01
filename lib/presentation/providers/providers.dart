@@ -6,3 +6,6 @@ export 'movies/movies_repository_provider/movies_repository_provider.dart';
 export 'movies/movie_credits_provider/movie_credits_provider.dart';
 
 export 'search/search_movie_provider.dart';
+
+export 'storage/favorite_movies_provider.dart';
+export 'storage/local_storage_provider.dart';

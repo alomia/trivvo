@@ -6,6 +6,8 @@ import 'package:trivvo/config/router/app_router.dart';
 import 'package:trivvo/config/theme/app_theme.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
   await dotenv.load(fileName: ".env");
 
   runApp(ProviderScope(child: const MainApp()));

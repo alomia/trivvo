@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:trivvo/domain/entities/entities.dart';
 
-import 'package:trivvo/presentation/widgets/movies/movie_poster_card.dart';
+import 'package:trivvo/presentation/widgets/movies/movie_poster.dart';
 
 class MoviesHorizontalList extends StatelessWidget {
   final String category;
@@ -54,10 +54,10 @@ class MoviesHorizontalList extends StatelessWidget {
               itemBuilder: (context, index) {
                 final movie = isLoading ? Movie.skeleton() : movies[index];
 
-                return SizedBox(
-                  width: 166.5,
-                  height: 250.0,
-                  child: MoviePosterCard(isLoading: isLoading, movie: movie),
+                return MoviePoster(
+                  isLoading: isLoading,
+                  imageUrl: movie.posterPath,
+                  navigationRoute: '/movie/${movie.id}',
                 );
               },
             ),

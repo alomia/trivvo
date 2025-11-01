@@ -6,7 +6,8 @@ final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) => HomeScreen(child: navigationShell),
+      builder: (context, state, navigationShell) =>
+          HomeScreen(child: navigationShell),
       branches: [
         StatefulShellBranch(
           routes: [
@@ -33,7 +34,17 @@ final appRouter = GoRouter(
 
         StatefulShellBranch(
           routes: [
-            GoRoute(path: '/saved', builder: (context, state) => SavedView()),
+            GoRoute(
+              path: '/saved',
+              builder: (context, state) => SavedView(),
+              routes: [
+                GoRoute(
+                  path: 'movie/:id',
+                  builder: (context, state) =>
+                      MovieView(movieId: state.pathParameters['id']!),
+                ),
+              ],
+            ),
           ],
         ),
 

@@ -11,18 +11,11 @@ class CustomBottomNavigation extends ConsumerWidget {
   const CustomBottomNavigation({super.key});
 
   int getCurrentIndex(BuildContext context) {
-    final currentLocation = GoRouterState.of(context).fullPath;
+    final location = GoRouterState.of(context).matchedLocation;
 
-    switch (currentLocation) {
-      case '/':
-        return 0;
-      case '/saved':
-        return 1;
-      case '/downloaded':
-        return 2;
-      default:
-        return 0;
-    }
+    if (location.startsWith('/saved')) return 1;
+    if (location.startsWith('/downloaded')) return 2;
+    return 0;
   }
 
   @override
@@ -69,23 +62,23 @@ class CustomBottomNavigation extends ConsumerWidget {
 
       items: [
         BottomNavigationBarItem(
-          label: 'Home',
+          label: 'Inicio',
           icon: Icon(PhosphorIcons.house()),
           activeIcon: Icon(PhosphorIconsFill.house),
         ),
         BottomNavigationBarItem(
-          label: 'Saved',
+          label: 'Guardado',
           icon: Icon(PhosphorIcons.bookmarkSimple()),
           activeIcon: Icon(PhosphorIconsFill.bookmarkSimple),
         ),
         BottomNavigationBarItem(
-          label: 'Downloaded',
+          label: 'Descargado',
           icon: Icon(PhosphorIcons.downloadSimple()),
           activeIcon: Icon(PhosphorIconsFill.downloadSimple),
         ),
 
         BottomNavigationBarItem(
-          label: 'Search',
+          label: 'Buscar',
           icon: Icon(PhosphorIcons.magnifyingGlass()),
           activeIcon: Icon(PhosphorIconsFill.magnifyingGlass),
         ),

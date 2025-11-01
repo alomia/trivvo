@@ -4,11 +4,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trivvo/presentation/providers/providers.dart';
 import 'package:trivvo/presentation/widgets/widgets.dart';
 
-class HomeView extends ConsumerWidget {
+class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends ConsumerState<HomeView> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      ref.read(favoriteMoviesNotifierProvider.notifier).loadFromLocalStorage();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final nowPlayingMoviesState = ref.watch(nowPlayingMoviesProvider);
     final nowPlayingMovies = nowPlayingMoviesState.value;
 

@@ -11,7 +11,7 @@ class AllMoviesView extends ConsumerWidget {
 
   const AllMoviesView({super.key, required this.category});
 
-   static const Map<String, String> _titles = {
+  static const Map<String, String> _titles = {
     'now-playing': 'Estrenos',
     'upcoming': 'Próximamente',
     'top-rated': 'Mejor valoradas',
@@ -24,21 +24,24 @@ class AllMoviesView extends ConsumerWidget {
 
     final nowPlayingMoviesState = ref.watch(nowPlayingMoviesProvider);
     final nowPlayingMovies = nowPlayingMoviesState.value;
-    
+
     return Scaffold(
-      appBar: AppBar(title: Text(title),),
+      appBar: AppBar(title: Text(title)),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             mainAxisSpacing: 10.0,
-            childAspectRatio: 0.666
+            childAspectRatio: 0.666,
           ),
           itemCount: nowPlayingMovies?.length,
           itemBuilder: (context, index) {
             final movie = nowPlayingMovies![index];
-            return MoviePosterCard(movie: movie);
+            return MoviePoster(
+              imageUrl: movie.posterPath,
+              navigationRoute: '/movie/${movie.id}',
+            );
           },
         ),
       ),

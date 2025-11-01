@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:trivvo/domain/entities/entities.dart';
+import 'package:trivvo/presentation/providers/providers.dart';
 
-class MovieInfoHeader extends StatelessWidget {
-  final String title;
-  final int releaseYear;
-  final List<String> genres;
+class MovieInfoHeader extends ConsumerWidget {
+  final Movie movie;
 
-  const MovieInfoHeader({
-    super.key,
-    required this.title,
-    required this.releaseYear,
-    required this.genres,
-  });
+  const MovieInfoHeader({super.key, required this.movie});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+
+    final favoriteMovies = ref.watch(favoriteMoviesNotifierProvider);
+    final notifier = ref.read(favoriteMoviesNotifierProvider.notifier);
+
+    final isFavorite = favoriteMovies.containsKey(movie.id);
 
     return SizedBox(
       height: 210.0,
@@ -24,9 +25,8 @@ class MovieInfoHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-
           Text(
-            title,
+            movie.title,
             style: textTheme.headlineSmall!.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.w700,
@@ -38,19 +38,26 @@ class MovieInfoHeader extends StatelessWidget {
           ),
 
           const SizedBox(height: 5.0),
-          _MovieMetadata(releaseYear: releaseYear, genres: genres),
+          _MovieMetadata(
+            releaseYear: movie.releaseDate.year,
+            genres: movie.genres.map((e) => e.name).toList(),
+          ),
 
           SizedBox(height: 10.0),
 
           Row(
             children: [
               IconButton(
-                onPressed: () => {},
-                icon: Icon(PhosphorIcons.heart()),
+                onPressed: () async {
+                  await notifier.toggleFavorite(movie);
+                },
+                icon: isFavorite
+                    ? Icon(PhosphorIconsFill.heart, color: Colors.redAccent,)
+                    : Icon(PhosphorIconsRegular.heart),
               ),
               IconButton(
                 onPressed: () => {},
-                icon: Icon(PhosphorIcons.downloadSimple()),
+                icon: Icon(PhosphorIconsRegular.downloadSimple),
               ),
 
               // Expanded(child: FilledButton.tonal(onPressed: () {}, child: Text('Mirar Ahora'))),

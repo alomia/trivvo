@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:trivvo/domain/entities/movie.dart';
 import 'package:trivvo/presentation/providers/providers.dart';
 import 'package:trivvo/presentation/widgets/widgets.dart';
 
@@ -39,14 +40,11 @@ class MovieView extends ConsumerWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MoviePoster(movie?.posterPath ?? ''),
+                        // MoviePoster(movie?.posterPath ?? ''),
                         SizedBox(width: 16.0),
                         Expanded(
                           child: MovieInfoHeader(
-                            title: movie?.title ?? '',
-                            releaseYear: movie?.releaseDate.year ?? 0,
-                            genres:
-                                movie?.genres.map((e) => e.name).toList() ?? [],
+                            movie: movie ?? Movie.skeleton(),
                           ),
                         ),
                       ],
