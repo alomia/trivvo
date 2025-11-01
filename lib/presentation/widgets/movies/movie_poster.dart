@@ -22,6 +22,7 @@ class MoviePoster extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Skeletonizer(
       enabled: isLoading,
@@ -42,22 +43,24 @@ class MoviePoster extends StatelessWidget {
 
                   fit: BoxFit.cover,
                 ),
-                Container(
-                  width: width,
-                  height: height,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      stops: [0.0, 0.3, 0.7],
-                      colors: [
-                        colorScheme.surface,
-                        colorScheme.surface.withValues(alpha: 0.0),
-                        Colors.transparent,
-                      ],
+
+                if (isDarkMode)
+                  Container(
+                    width: width,
+                    height: height,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        stops: [0.0, 0.3, 0.7],
+                        colors: [
+                          colorScheme.surface,
+                          colorScheme.surface.withValues(alpha: 0.0),
+                          Colors.transparent,
+                        ],
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),

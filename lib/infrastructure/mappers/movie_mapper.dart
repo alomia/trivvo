@@ -2,11 +2,14 @@ import 'package:trivvo/domain/entities/entities.dart';
 import 'package:trivvo/infrastructure/models/models.dart';
 
 class MovieMapper {
-  static const _imageBaseUrl = 'https://image.tmdb.org/t/p/original';
+  static const _posterBaseUrl = 'https://image.tmdb.org/t/p/w500';
+  static const _backdropBaseUrl = 'https://image.tmdb.org/t/p/w1280';
+  static const _fallbackImage =
+      'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png';
 
   static Movie tmdbListToEntity(MovieTmdbList movie) => Movie(
     adult: movie.adult,
-    backdropPath: '$_imageBaseUrl${movie.backdropPath}',
+    backdropPath: '$_backdropBaseUrl${movie.backdropPath}',
     genres: movie.genreIds.map((genre) => Genre(id: genre, name: '')).toList(),
     id: movie.id,
     originalLanguage: movie.originalLanguage,
@@ -14,8 +17,8 @@ class MovieMapper {
     overview: movie.overview,
     popularity: movie.popularity,
     posterPath: movie.posterPath == null
-        ? "https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png"
-        : "$_imageBaseUrl${movie.posterPath}",
+        ? _fallbackImage
+        : "$_posterBaseUrl${movie.posterPath}",
     releaseDate: movie.releaseDate,
     title: movie.title,
     video: movie.video,
@@ -27,7 +30,7 @@ class MovieMapper {
     adult: movie.adult,
     backdropPath: movie.backdropPath == null
         ? ''
-        : '$_imageBaseUrl${movie.backdropPath}',
+        : '$_backdropBaseUrl${movie.backdropPath}',
     genres: movie.genres
         .map((genre) => Genre(id: genre.id, name: genre.name))
         .toList(),
@@ -36,7 +39,7 @@ class MovieMapper {
     originalTitle: movie.originalTitle,
     overview: movie.overview ?? '',
     popularity: movie.popularity,
-    posterPath: '$_imageBaseUrl${movie.posterPath}',
+    posterPath: '$_posterBaseUrl${movie.posterPath}',
     releaseDate: movie.releaseDate,
     title: movie.title,
     video: movie.video,

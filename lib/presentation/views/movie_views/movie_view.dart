@@ -34,14 +34,13 @@ class MovieView extends ConsumerWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Skeletonizer(
                     enabled: movieState.isLoading,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // MoviePoster(movie?.posterPath ?? ''),
-                        SizedBox(width: 16.0),
+                        SizedBox(width: 10.0),
                         Expanded(
                           child: MovieInfoHeader(
                             movie: movie ?? Movie.skeleton(),

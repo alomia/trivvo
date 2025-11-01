@@ -21,7 +21,7 @@ class MovieCarousel extends StatelessWidget {
       enabled: isLoading,
       child: SizedBox(
         width: double.infinity,
-        height: 400,
+        height: 420,
         child: CarouselSlider.builder(
           options: CarouselOptions(
             aspectRatio: 0.8,

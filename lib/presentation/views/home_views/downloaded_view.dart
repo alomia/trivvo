@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:trivvo/presentation/widgets/widgets.dart';
 
 class DownloadedView extends StatelessWidget {
   const DownloadedView({super.key});
@@ -6,8 +8,10 @@ class DownloadedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Descargado')),
-      body: Center(child: Text("Descargado")),
+      body: EmptyState(
+        icon: PhosphorIconsRegular.downloadSimple,
+        message: 'Aún no tienes películas descargadas',
+      ),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:trivvo/domain/entities/entities.dart';
 import 'package:trivvo/infrastructure/models/models.dart';
 
 abstract class CastMapper {
-  static const _imageBaseUrl = 'https://image.tmdb.org/t/p/original';
+  static const _imageBaseUrl = 'https://image.tmdb.org/t/p/w185';
 
   static Cast tmdbToEntity(CastTmdb cast) => Cast(
     name: cast.name,

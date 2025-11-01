@@ -5,19 +5,17 @@ import 'package:skeletonizer/skeletonizer.dart';
 const primary = Color(0xFF0BAB7C);
 const darkBackground = Color(0xFF14171F);
 
-final lightColorScheme = ColorScheme.fromSeed(seedColor: Colors.green);
+final lightColorScheme = ColorScheme.fromSeed(
+  seedColor: Colors.green,
+  surface: Colors.white,
+);
 
-final darkColorScheme = ColorScheme(
+final darkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
+  seedColor: primary,
   primary: primary,
-  onPrimary: Colors.white,
   secondary: primary,
-  onSecondary: Colors.white,
-  error: Colors.red,
-  onError: Colors.red,
   surface: darkBackground,
-  surfaceContainerHigh: Color(0xFF111924),
-  onSurface: Colors.white,
 );
 
 final lightTheme = ThemeData.from(colorScheme: lightColorScheme);

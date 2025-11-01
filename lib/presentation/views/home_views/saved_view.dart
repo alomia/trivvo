@@ -9,18 +9,15 @@ class SavedView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textTheme = Theme.of(context).textTheme;
-
     final favoriteMovies = ref
         .watch(favoriteMoviesNotifierProvider)
         .values
         .toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text("Guardado")),
       body: favoriteMovies.isNotEmpty
           ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0,  top: 10.0),
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
@@ -37,23 +34,9 @@ class SavedView extends ConsumerWidget {
                 },
               ),
             )
-          : SizedBox(
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-
-                children: [
-                  Icon(PhosphorIconsRegular.bookmarkSimple, size: 60.0),
-                  SizedBox(height: 12.0),
-                  Text(
-                    'Aún no tienes películas guardadas',
-                    style: textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.w400,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
+          : EmptyState(
+              icon: PhosphorIconsRegular.bookmarkSimple,
+              message: 'Aún no tienes películas guardadas',
             ),
     );
   }
