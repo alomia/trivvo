@@ -2,6 +2,8 @@
 
 **Trivvo** es una app Flutter que funciona como una enciclopedia interactiva de películas, series, actores y más. Utiliza la API oficial de [TMDB](https://www.themoviedb.org/) para ofrecer información actualizada del mundo audiovisual.
 
+![Captura de pantalla de la aplicación Trivvo](trivvo.jpg)
+
 ---
 
 ## 🚀 Comenzando

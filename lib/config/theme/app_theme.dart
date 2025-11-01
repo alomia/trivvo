@@ -16,6 +16,7 @@ final darkColorScheme = ColorScheme.fromSeed(
   primary: primary,
   secondary: primary,
   surface: darkBackground,
+  surfaceContainerHigh: Color(0xFF111924),
 );
 
 final lightTheme = ThemeData.from(colorScheme: lightColorScheme);
